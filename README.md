@@ -45,6 +45,27 @@ Before you begin, ensure you have met the following requirements:
         npm install
         npm run build
         ```
+      
+3. **Asset Bundling (Vite)**
+
+There are two ways you can run Vite. You may run the development server via the `dev` command, which is useful while developing locally. The development server will automatically detect changes to your files and instantly reflect them in any open browser windows.
+
+Or, running the `build` command will version and bundle your application's assets and get them ready for you to deploy to production:
+
+Run the Vite development server...
+
+```sh
+npm run dev
+```
+
+Build and version the assets for production...
+
+```sh
+npm run build
+```
+
+Detailed information can be found in the [Laravel docs](https://laravel.com/docs/11.x/vite)
+
 
 ## Configuration
 
