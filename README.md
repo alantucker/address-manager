@@ -12,6 +12,7 @@ Welcome to the Address Manager repository! This project is built with Laravel an
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
+- [API Reference](#api-reference)
 
 ## Prerequisites
 
@@ -111,3 +112,26 @@ To run the tests, execute:
 
 ```sh
 php artisan test
+```
+
+## API Reference
+
+Lookup POSTCODE with no spaces from the getAddress.io API
+```sh
+http://localhost:8000/api/v1/lookup/{postcode}
+```
+
+Show full address using ID from the above API call 
+```sh
+http://localhost:8000/api/v1/lookup/show/{id}
+```
+
+Store the full address using the ID from the first API Call 
+```sh
+http://localhost:8000/api/v1/address/store/{id}
+```
+
+Find the full address from local database using UUID
+```sh
+http://localhost:8000/api/v1/lookup/find/{id}
+```
