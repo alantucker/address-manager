@@ -25,7 +25,3 @@ Route::get('/v1/lookup/show/{id}', [AddressController::class, 'show']);
 Route::get('/v1/lookup/find/{id}', function (string $id) {
     return new AddressResource(Address::findOrFail($id));
 });
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
