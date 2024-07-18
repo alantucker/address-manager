@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/v1/address/store/{id}', [AddressController::class, 'store']);
+
 Route::get('/v1/lookup/{postcode}', [AddressController::class, 'index']);
 Route::get('/v1/lookup/show/{id}', [AddressController::class, 'show']);
 
