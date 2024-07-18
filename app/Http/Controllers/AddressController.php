@@ -39,6 +39,18 @@ class AddressController extends Controller
         $response = Http::get(config('app.url') . '/api/v1/lookup/show/' . $request->id);
         $response = $response->json('data');
 
+        $addressCheck = Address::where([
+            "address_1" => $response['line_1'],
+            "postcode" => $response['postcode']
+        ])->get();
+
+        if ($addressCheck->isNotEmpty()) {
+            return view('address.bypostcode.show',[
+                'status' => 'error',
+                'message' => 'Address already exists'
+            ]);
+        }
+
         $new_address = Address::create([
             'id' => Str::uuid(),
             'company_name' => $response['residential'] === false ? $response['line_1'] : "",
@@ -52,7 +64,10 @@ class AddressController extends Controller
             'latitude' => $response['latitude'],
         ]);
 
-        return view('address.bypostcode.index', ['stored_address' => $new_address]);
+        return view('address.bypostcode.show',[
+            'status' => 'success',
+            'stored_address' => $new_address
+        ]);
     }
 
     /**
