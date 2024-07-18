@@ -36,37 +36,20 @@ class AddressController extends Controller
      */
     public function byPostcodeStore(Request $request)
     {
-        $response = Http::get(config('app.url') . '/api/v1/lookup/show/' . $request->id);
-        $response = $response->json('data');
 
-        $addressCheck = Address::where([
-            "address_1" => $response['line_1'],
-            "postcode" => $response['postcode']
-        ])->get();
+        $response = Http::post(config('app.url') . '/api/v1/address/store/' . $request->id);
+        $response = json_decode($response->body());
 
-        if ($addressCheck->isNotEmpty()) {
-            return view('address.bypostcode.show',[
-                'status' => 'error',
-                'message' => 'Address already exists'
+        if (isset($response->status) && $response->status == "error") {
+            return view('address.bypostcode.show', [
+                'status' => $response->status,
+                'message' => $response->message
             ]);
         }
 
-        $new_address = Address::create([
-            'id' => Str::uuid(),
-            'company_name' => $response['residential'] === false ? $response['line_1'] : "",
-            'address_1' => $response['residential'] === false ? $response['line_2'] : $response['line_1'],
-            'address_2' => $response['residential'] === false ? "" : $response['line_2'],
-            'city' => $response['town_or_city'],
-            'county' => $response['county'],
-            'postcode' => $response['postcode'],
-            'country' => $response['country'],
-            'longitude' => $response['longitude'],
-            'latitude' => $response['latitude'],
-        ]);
-
         return view('address.bypostcode.show',[
             'status' => 'success',
-            'stored_address' => $new_address
+            'stored_address' => $response->data
         ]);
     }
 
