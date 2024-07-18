@@ -96,7 +96,7 @@ class AddressController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Display the address details from the supplied id
      */
     public function show(Request $request)
     {
