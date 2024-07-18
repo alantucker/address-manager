@@ -72,7 +72,7 @@ class AddressController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Address already exists'
-            ], 400);
+            ], 422);
         }
 
         $new_address = Address::create([
@@ -91,7 +91,6 @@ class AddressController extends Controller
         return response()->json([
             'data' => $new_address
         ], 200);
-
     }
 
 
